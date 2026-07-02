@@ -1,0 +1,15 @@
+node_modules/
+out/
+dist/
+webview-dist/
+*.vsix
+.vscode-test/
+coverage/
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+.env
+.DS_Store
+Thumbs.db

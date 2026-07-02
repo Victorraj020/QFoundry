@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Extension (QForge)",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceRoot}/packages/extension"
+      ],
+      "outFiles": [
+        "${workspaceRoot}/packages/extension/out/**/*.js"
+      ],
+      "preLaunchTask": "npm: build"
+    }
+  ]
+}

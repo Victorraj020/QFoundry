@@ -1,0 +1,499 @@
+/**
+ * QForge Webview UI — Design System
+ *
+ * Uses VS Code CSS custom properties throughout so the UI feels native
+ * in both light and dark themes without any theme-detection logic.
+ *
+ * Typography, spacing, and color are all derived from VS Code variables.
+ */
+
+/* ---------------------------------------------------------------------------
+   Reset & base
+--------------------------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  font-size: var(--vscode-font-size, 13px);
+  color: var(--vscode-foreground, #cccccc);
+  background: var(--vscode-editor-background, #1e1e1e);
+  line-height: 1.6;
+}
+
+body {
+  padding: 0;
+  overflow-x: hidden;
+}
+
+code, pre {
+  font-family: var(--vscode-editor-font-family, 'Cascadia Code', 'Fira Code', monospace);
+  font-size: 0.9em;
+}
+
+/* ---------------------------------------------------------------------------
+   Panel chrome
+--------------------------------------------------------------------------- */
+
+.panel-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--vscode-panel-border, #424242);
+  background: var(--vscode-sideBar-background, #252526);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.panel-title {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.panel-circuit-name {
+  color: var(--vscode-symbolIcon-variableForeground, #9cdcfe);
+  font-family: var(--vscode-editor-font-family, monospace);
+}
+
+.panel-circuit-meta {
+  font-size: 0.85em;
+  font-weight: 400;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  font-family: var(--vscode-font-family);
+}
+
+.panel-subtitle {
+  font-size: 0.8em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  margin-top: 4px;
+}
+
+.badge-approx {
+  display: inline-block;
+  font-size: 0.75em;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--vscode-badge-background, #4d4d4d);
+  color: var(--vscode-badge-foreground, #ffffff);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ---------------------------------------------------------------------------
+   Empty state
+--------------------------------------------------------------------------- */
+
+.panel-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 24px;
+  text-align: center;
+  gap: 12px;
+}
+
+.panel-empty-icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.panel-empty h2 {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+}
+
+.panel-empty p {
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  max-width: 320px;
+}
+
+.panel-empty-hint {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------------------
+   Error state
+--------------------------------------------------------------------------- */
+
+.panel-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 20px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: var(--vscode-inputValidation-errorBackground, #5a1d1d);
+  border: 1px solid var(--vscode-inputValidation-errorBorder, #be1100);
+  color: var(--vscode-errorForeground, #f48771);
+}
+
+.panel-error-icon {
+  font-size: 1.2em;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Loading spinner
+--------------------------------------------------------------------------- */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 16px;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--vscode-panel-border, #424242);
+  border-top-color: var(--vscode-progressBar-background, #0e70c0);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-message {
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  font-size: 0.9em;
+}
+
+/* ---------------------------------------------------------------------------
+   Circuit Preview Panel
+--------------------------------------------------------------------------- */
+
+.circuit-preview-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.circuit-canvas-wrapper {
+  flex: 1;
+  padding: 16px 20px;
+  overflow: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Timeline Panel
+--------------------------------------------------------------------------- */
+
+.timeline-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-steps {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeline-step-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline-step-number {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+}
+
+.timeline-step-gates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timeline-gate-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--vscode-button-secondaryBackground, #3a3d41);
+  border: 1px solid var(--vscode-button-secondaryHoverBackground, #45494e);
+  font-size: 0.85em;
+}
+
+.timeline-gate-name {
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-weight: 700;
+  color: var(--vscode-symbolIcon-functionForeground, #dcdcaa);
+}
+
+.timeline-gate-qubits {
+  color: var(--vscode-symbolIcon-variableForeground, #9cdcfe);
+  font-family: var(--vscode-editor-font-family, monospace);
+}
+
+.timeline-gate-params {
+  color: var(--vscode-symbolIcon-numberForeground, #b5cea8);
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 0.9em;
+}
+
+.timeline-connector {
+  text-align: center;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  font-size: 1.1em;
+  padding: 4px 0;
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Explain Panel
+--------------------------------------------------------------------------- */
+
+.explain-panel {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 32px;
+}
+
+.explain-summary {
+  padding: 16px 20px;
+  font-size: 0.95em;
+  line-height: 1.7;
+  color: var(--vscode-foreground);
+  border-bottom: 1px solid var(--vscode-panel-border, #424242);
+}
+
+.explain-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--vscode-panel-border, #424242);
+  border-top: 1px solid var(--vscode-panel-border, #424242);
+  border-bottom: 1px solid var(--vscode-panel-border, #424242);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  background: var(--vscode-editor-background, #1e1e1e);
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--vscode-symbolIcon-variableForeground, #9cdcfe);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+}
+
+.explain-properties {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+}
+
+.property-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.82em;
+  font-weight: 500;
+}
+
+.property-badge.active {
+  background: var(--vscode-badge-background, #0e639c);
+  color: var(--vscode-badge-foreground, #ffffff);
+}
+
+.property-badge.inactive {
+  background: var(--vscode-button-secondaryBackground, #3a3d41);
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+}
+
+.explain-gate-breakdown {
+  padding: 16px 20px;
+}
+
+.explain-gate-breakdown h2 {
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  margin-bottom: 12px;
+}
+
+.gate-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gate-breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gate-breakdown-name {
+  width: 52px;
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 0.82em;
+  font-weight: 700;
+  color: var(--vscode-symbolIcon-functionForeground, #dcdcaa);
+  flex-shrink: 0;
+}
+
+.gate-breakdown-bar-wrapper {
+  flex: 1;
+  height: 6px;
+  background: var(--vscode-button-secondaryBackground, #3a3d41);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.gate-breakdown-bar {
+  height: 100%;
+  background: var(--vscode-progressBar-background, #0e70c0);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  min-width: 4px;
+}
+
+.gate-breakdown-count {
+  font-size: 0.8em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------------------
+   Gate Doc Card
+--------------------------------------------------------------------------- */
+
+.gate-doc-card {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gate-doc-title {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.gate-doc-summary {
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+}
+
+.gate-doc-section h3 {
+  font-size: 0.82em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vscode-descriptionForeground);
+  margin-bottom: 6px;
+}
+
+.gate-doc-section ul {
+  padding-left: 18px;
+}
+
+.gate-doc-code {
+  background: var(--vscode-textCodeBlock-background, #0a0a0a);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.88em;
+}
+
+.gate-doc-note {
+  font-size: 0.88em;
+  color: var(--vscode-descriptionForeground);
+  font-style: italic;
+}
+
+.gate-doc-see-also {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---------------------------------------------------------------------------
+   Action button
+--------------------------------------------------------------------------- */
+
+.panel-action-button {
+  padding: 8px 20px;
+  border-radius: 4px;
+  border: none;
+  background: var(--vscode-button-background, #0e639c);
+  color: var(--vscode-button-foreground, #ffffff);
+  font-family: var(--vscode-font-family);
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.panel-action-button:hover {
+  background: var(--vscode-button-hoverBackground, #1177bb);
+}
+
+/* ---------------------------------------------------------------------------
+   Error boundary
+--------------------------------------------------------------------------- */
+
+.error-boundary {
+  padding: 20px;
+  color: var(--vscode-errorForeground, #f48771);
+}
+
+.error-boundary pre {
+  margin-top: 8px;
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.error-boundary button {
+  margin-top: 12px;
+  padding: 6px 16px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}

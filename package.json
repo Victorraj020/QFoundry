@@ -1,0 +1,28 @@
+{
+  "name": "qforge-workspace",
+  "version": "0.0.1",
+  "author": "Victorraj",
+  "private": true,
+  "workspaces": [
+    "packages/extension",
+    "packages/webview-ui"
+  ],
+  "scripts": {
+    "build": "npm run build:webview && npm run build:extension",
+    "build:extension": "npm run build --workspace=packages/extension",
+    "build:webview": "npm run build --workspace=packages/webview-ui",
+    "dev": "npm run dev:webview",
+    "dev:webview": "npm run dev --workspace=packages/webview-ui",
+    "watch:extension": "npm run watch --workspace=packages/extension",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint packages/extension/src packages/webview-ui/src --ext .ts,.tsx",
+    "format": "prettier --write \"packages/*/src/**/*.{ts,tsx,css}\""
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  }
+}

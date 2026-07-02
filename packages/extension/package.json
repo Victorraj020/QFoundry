@@ -1,0 +1,122 @@
+{
+  "name": "qforge",
+  "displayName": "QForge — Quantum Developer Tools",
+  "description": "Live circuit preview, hover documentation, timeline, and intelligent analysis for Qiskit quantum computing.",
+  "version": "0.1.0",
+  "publisher": "qforge",
+  "author": "Victorraj",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "Visualization", "Education"],
+  "keywords": ["quantum computing", "qiskit", "quantum circuit", "visualization"],
+  "activationEvents": ["onLanguage:python"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "qforge.openCircuitPreview",
+        "title": "Open Circuit Preview",
+        "category": "QForge",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "qforge.openTimeline",
+        "title": "Open Circuit Timeline",
+        "category": "QForge",
+        "icon": "$(list-ordered)"
+      },
+      {
+        "command": "qforge.explainCircuit",
+        "title": "Explain Circuit",
+        "category": "QForge",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "qforge.restartServer",
+        "title": "Restart Python Server",
+        "category": "QForge",
+        "icon": "$(refresh)"
+      }
+    ],
+    "configuration": {
+      "title": "QForge",
+      "properties": {
+        "qforge.pythonPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to Python executable with Qiskit installed. Leave empty to auto-detect."
+        },
+        "qforge.autoPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically open Circuit Preview when a QuantumCircuit is detected in the active file."
+        },
+        "qforge.debounceMs": {
+          "type": "number",
+          "default": 300,
+          "minimum": 100,
+          "maximum": 2000,
+          "description": "Milliseconds to wait after typing before re-parsing the circuit."
+        },
+        "qforge.circuitRenderer": {
+          "type": "string",
+          "default": "svg",
+          "enum": ["svg"],
+          "enumDescriptions": ["SVG-based circuit renderer (default)"],
+          "description": "Active circuit renderer. Additional renderers can be installed via the QForge Marketplace."
+        }
+      }
+    },
+    "menus": {
+      "editor/title": [
+        {
+          "command": "qforge.openCircuitPreview",
+          "when": "resourceLangId == python",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "qforge.openCircuitPreview",
+          "when": "resourceLangId == python"
+        },
+        {
+          "command": "qforge.openTimeline",
+          "when": "resourceLangId == python"
+        },
+        {
+          "command": "qforge.explainCircuit",
+          "when": "resourceLangId == python"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "qforge.openCircuitPreview",
+        "key": "ctrl+shift+q",
+        "mac": "cmd+shift+q",
+        "when": "resourceLangId == python"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "@types/uuid": "^9.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.26.0",
+    "esbuild": "^0.20.2",
+    "typescript": "^5.4.5"
+  }
+}
