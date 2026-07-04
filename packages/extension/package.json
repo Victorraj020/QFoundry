@@ -74,7 +74,17 @@
         {
           "command": "qforge.openCircuitPreview",
           "when": "resourceLangId == python",
-          "group": "navigation"
+          "group": "navigation@1"
+        },
+        {
+          "command": "qforge.openTimeline",
+          "when": "resourceLangId == python",
+          "group": "navigation@2"
+        },
+        {
+          "command": "qforge.explainCircuit",
+          "when": "resourceLangId == python",
+          "group": "navigation@3"
         }
       ],
       "commandPalette": [
@@ -97,6 +107,18 @@
         "command": "qforge.openCircuitPreview",
         "key": "ctrl+shift+q",
         "mac": "cmd+shift+q",
+        "when": "resourceLangId == python"
+      },
+      {
+        "command": "qforge.openTimeline",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "resourceLangId == python"
+      },
+      {
+        "command": "qforge.explainCircuit",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
         "when": "resourceLangId == python"
       }
     ]
