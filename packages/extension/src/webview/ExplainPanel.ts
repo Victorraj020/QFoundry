@@ -9,7 +9,8 @@
 import * as vscode from 'vscode';
 import { PanelBase } from './PanelBase';
 import type { WebviewMessageService } from '../services/WebviewMessageService';
-import { Panels } from '../shared/constants';
+import { Panels, Commands } from '../shared/constants';
+import type { WebviewMessage } from '../shared/messages';
 
 export class ExplainPanel extends PanelBase {
   readonly panelId = Panels.EXPLAIN;
@@ -23,4 +24,11 @@ export class ExplainPanel extends PanelBase {
   ) {
     super(context, outputChannel);
   }
+
+  protected override onMessageReceived(message: WebviewMessage): void {
+    if (message.type === 'REQUEST_ANALYSIS') {
+      vscode.commands.executeCommand(Commands.EXPLAIN_CIRCUIT);
+    }
+  }
 }
+
