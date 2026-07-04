@@ -17,6 +17,7 @@
 import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as path from 'path';
+import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import {
   PYTHON_SERVER_STARTUP_TIMEOUT_MS,
@@ -66,13 +67,21 @@ export class PythonBridgeService implements vscode.Disposable {
 
   async start(): Promise<void> {
     const pythonPath = this.resolvePythonPath();
-    const serverScript = path.join(
+    let serverScript = path.join(
       this.context.extensionPath,
-      'packages',
       'python',
       'qforge',
       'server.py',
     );
+    if (!fs.existsSync(serverScript)) {
+      serverScript = path.resolve(
+        this.context.extensionPath,
+        '..',
+        'python',
+        'qforge',
+        'server.py',
+      );
+    }
 
     this.outputChannel.appendLine(`[QForge] Starting Python server: ${pythonPath} ${serverScript}`);
 
