@@ -17,6 +17,7 @@ import { registerOpenCircuitPreview } from '../commands/openCircuitPreview';
 import { registerExplainCircuit } from '../commands/explainCircuit';
 import { registerOpenTimeline } from '../commands/openTimeline';
 import { registerRunSimulation } from '../commands/runSimulation';
+import { registerRunOptimization } from '../commands/runOptimization';
 import { Commands, EXTENSION_DISPLAY_NAME } from '../shared/constants';
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -40,6 +41,7 @@ export function activate(context: vscode.ExtensionContext): void {
     registerExplainCircuit(container),
     registerOpenTimeline(container),
     registerRunSimulation(container),
+    registerRunOptimization(),
     vscode.commands.registerCommand(Commands.RESTART_SERVER, () => {
       container.pythonBridge.restart().catch((err: Error) => {
         vscode.window.showErrorMessage(`QForge: Failed to restart server — ${err.message}`);

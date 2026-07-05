@@ -14,6 +14,20 @@ import type { GateDoc } from './GateDoc';
 import type { AnalysisResult } from './AnalysisResult';
 import type { ExecutionResult, DebugResult } from './plugins';
 
+export interface OptimizationResult {
+  readonly originalDepth: number;
+  readonly optimizedDepth: number;
+  readonly originalGateCount: number;
+  readonly optimizedGateCount: number;
+  readonly suggestions: Array<{
+    readonly type: 'CANCEL_INVERSE' | 'MERGE_ROTATIONS';
+    readonly description: string;
+    readonly qubits: number[];
+    readonly lines: number[];
+  }>;
+  readonly optimizedSource: string;
+}
+
 // ---------------------------------------------------------------------------
 // Extension Host → Webview messages
 // ---------------------------------------------------------------------------
@@ -38,6 +52,10 @@ export type ExtensionMessage =
   | {
       readonly type: 'DEBUG_STATES_UPDATED';
       readonly payload: DebugResult;
+    }
+  | {
+      readonly type: 'OPTIMIZATIONS_UPDATED';
+      readonly payload: OptimizationResult;
     }
   | {
       readonly type: 'ERROR';
@@ -90,6 +108,15 @@ export type WebviewMessage =
     }
   | {
       readonly type: 'REQUEST_DEBUG_STATES';
+    }
+  | {
+      readonly type: 'REQUEST_OPTIMIZATIONS';
+    }
+  | {
+      readonly type: 'APPLY_OPTIMIZED_CODE';
+      readonly payload: {
+        readonly optimizedSource: string;
+      };
     };
 
 // ---------------------------------------------------------------------------

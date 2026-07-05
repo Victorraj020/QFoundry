@@ -13,7 +13,7 @@ import { Panels } from '../shared/constants';
 
 export class TimelinePanel extends PanelBase {
   readonly panelId = Panels.TIMELINE;
-  protected readonly viewTitle = 'QForge — Circuit Timeline';
+  protected readonly viewTitle = 'QFoundry — Circuit Timeline';
   protected readonly viewColumn = vscode.ViewColumn.Beside;
 
   constructor(

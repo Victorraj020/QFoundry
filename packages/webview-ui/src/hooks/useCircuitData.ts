@@ -13,7 +13,14 @@ import { useCircuitStore } from '../store/circuitStore';
 
 export function useCircuitData(): void {
   const message = useVSCodeMessage();
-  const { setCircuit, setAnalysis, setSimulationResult, setIsSimulating, setDebugResult } = useCircuitStore();
+  const {
+    setCircuit,
+    setAnalysis,
+    setSimulationResult,
+    setIsSimulating,
+    setDebugResult,
+    setOptimizationResult,
+  } = useCircuitStore();
   const { setLoading, setError, clearError } = useUIStore();
 
   useEffect(() => {
@@ -45,6 +52,12 @@ export function useCircuitData(): void {
         clearError();
         setLoading(false);
         setDebugResult(message.payload);
+        break;
+
+      case 'OPTIMIZATIONS_UPDATED':
+        clearError();
+        setLoading(false);
+        setOptimizationResult(message.payload);
         break;
 
       case 'LOADING':

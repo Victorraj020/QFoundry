@@ -990,6 +990,7 @@ code, pre {
 
 .debug-scrubber {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 4px;
   border-radius: 2px;
@@ -1000,6 +1001,7 @@ code, pre {
 
 .debug-scrubber::-webkit-slider-thumb {
   -webkit-appearance: none;
+  appearance: none;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -1203,5 +1205,275 @@ code, pre {
   color: var(--vscode-foreground);
   min-width: 48px;
 }
+
+/* ---------------------------------------------------------------------------
+   Optimizer Styling (Phase 4)
+--------------------------------------------------------------------------- */
+
+.optimizer-view {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 120px);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .optimizer-view {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+.opt-sidebar {
+  width: 320px;
+  background: var(--vscode-sideBar-background, #252526);
+  border-right: 1px solid var(--vscode-panel-border, #424242);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .opt-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--vscode-panel-border, #424242);
+  }
+}
+
+.opt-main {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  background: var(--vscode-editor-background, #1e1e1e);
+}
+
+.opt-stats-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.opt-stat-card {
+  background: var(--vscode-editor-inactiveSelectionBackground, #2d2d30);
+  border: 1px solid var(--vscode-panel-border, #424242);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.opt-stat-label {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+}
+
+.opt-stat-comparison {
+  font-size: 1.3em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.opt-arrow {
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  font-size: 0.8em;
+}
+
+.opt-stat-new {
+  color: #388bfd; /* VS Code blue */
+}
+
+.opt-badge-reduction {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.7em;
+  background: rgba(35, 134, 54, 0.2); /* GitHub green transparent */
+  color: #3fb950;
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.opt-section-title {
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  margin-bottom: 8px;
+}
+
+.opt-suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.opt-suggestion-item {
+  background: var(--vscode-list-hoverBackground, #2a2d2e);
+  border-left: 3px solid #388bfd;
+  padding: 10px 12px;
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.opt-suggestion-item.cancel {
+  border-left-color: #da3633; /* red */
+}
+
+.opt-suggestion-item.merge {
+  border-left-color: #3fb950; /* green */
+}
+
+.opt-suggestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.opt-suggestion-type {
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--vscode-foreground);
+}
+
+.opt-suggestion-lines {
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 0.75em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  background: var(--vscode-editor-background, #1e1e1e);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.opt-suggestion-desc {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground, #cccccc);
+  line-height: 1.35;
+}
+
+.opt-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.opt-preview-title {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.opt-action-bar {
+  display: flex;
+  gap: 12px;
+}
+
+.opt-apply-button {
+  background: #238636; /* GitHub green */
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.opt-apply-button:hover {
+  background: #2ea043;
+}
+
+.opt-apply-button:disabled {
+  background: var(--vscode-button-secondaryBackground, #3a3d3e);
+  color: var(--vscode-button-secondaryForeground, #ffffff);
+  cursor: not-allowed;
+}
+
+.opt-code-card {
+  flex: 1;
+  background: var(--vscode-editor-background, #1e1e1e);
+  border: 1px solid var(--vscode-panel-border, #424242);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.opt-code-card-header {
+  background: var(--vscode-titleBar-activeBackground, #3c3c3c);
+  padding: 8px 12px;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--vscode-titleBar-activeForeground, #cccccc);
+  border-bottom: 1px solid var(--vscode-panel-border, #424242);
+}
+
+.opt-code-block {
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 0.9em;
+  line-height: 1.45;
+  color: var(--vscode-editor-foreground, #d4d4d4);
+  background: var(--vscode-editor-background, #1e1e1e);
+  flex: 1;
+  white-space: pre;
+}
+
+.opt-clean-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  gap: 12px;
+  background: rgba(63, 185, 80, 0.05);
+  border: 1px dashed rgba(63, 185, 80, 0.3);
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.opt-clean-icon {
+  font-size: 2.5em;
+}
+
+.opt-clean-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #3fb950;
+}
+
+.opt-clean-desc {
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground, #8c8c8c);
+  max-width: 320px;
+}
+
 
 

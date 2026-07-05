@@ -25,9 +25,12 @@ export function CircuitPreviewPanel(): JSX.Element {
     setCurrentStepIndex,
     isPlayMode,
     setIsPlayMode,
+    optimizationResult,
+    isOptimizing,
+    setIsOptimizing,
   } = useCircuitStore();
   const { isLoading, loadingMessage, error } = useUIStore();
-  const [activeTab, setActiveTab] = useState<'diagram' | 'simulation' | 'debugger'>('diagram');
+  const [activeTab, setActiveTab] = useState<'diagram' | 'simulation' | 'debugger' | 'optimizer'>('diagram');
   const [shots, setShots] = useState<number>(1024);
   const [seed, setSeed] = useState<string>('');
 
@@ -35,6 +38,14 @@ export function CircuitPreviewPanel(): JSX.Element {
   useEffect(() => {
     if (activeTab === 'debugger') {
       postMessageToExtension({ type: 'REQUEST_DEBUG_STATES' });
+    }
+  }, [activeTab, circuit]);
+
+  // Fetch optimizations when switching to optimizer tab or when circuit updates
+  useEffect(() => {
+    if (activeTab === 'optimizer') {
+      setIsOptimizing(true);
+      postMessageToExtension({ type: 'REQUEST_OPTIMIZATIONS' });
     }
   }, [activeTab, circuit]);
 
@@ -134,6 +145,14 @@ export function CircuitPreviewPanel(): JSX.Element {
             onClick={() => setActiveTab('debugger')}
           >
             Debugger
+          </button>
+          <button
+            className={`panel-tab ${activeTab === 'optimizer' ? 'active' : ''}`}
+            role="tab"
+            aria-selected={activeTab === 'optimizer'}
+            onClick={() => setActiveTab('optimizer')}
+          >
+            Optimizer
           </button>
         </div>
       </header>
@@ -459,6 +478,104 @@ export function CircuitPreviewPanel(): JSX.Element {
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'optimizer' && (
+          <div className="optimizer-view">
+            {/* Sidebar with Suggestions */}
+            <div className="opt-sidebar">
+              <h4 className="opt-section-title">Optimization Metrics</h4>
+              <div className="opt-stats-container">
+                <div className="opt-stat-card">
+                  <span className="opt-stat-label">Depth</span>
+                  <div className="opt-stat-comparison">
+                    <span>{optimizationResult?.originalDepth ?? circuit.gates.length}</span>
+                    <span className="opt-arrow">→</span>
+                    <span className="opt-stat-new">{optimizationResult?.optimizedDepth ?? 0}</span>
+                  </div>
+                  {optimizationResult && optimizationResult.originalDepth > 0 && (
+                    <span className="opt-badge-reduction">
+                      -{Math.round(((optimizationResult.originalDepth - optimizationResult.optimizedDepth) / optimizationResult.originalDepth) * 100)}%
+                    </span>
+                  )}
+                </div>
+
+                <div className="opt-stat-card">
+                  <span className="opt-stat-label">Gates</span>
+                  <div className="opt-stat-comparison">
+                    <span>{optimizationResult?.originalGateCount ?? circuit.gates.length}</span>
+                    <span className="opt-arrow">→</span>
+                    <span className="opt-stat-new">{optimizationResult?.optimizedGateCount ?? 0}</span>
+                  </div>
+                  {optimizationResult && optimizationResult.originalGateCount > 0 && (
+                    <span className="opt-badge-reduction">
+                      -{Math.round(((optimizationResult.originalGateCount - optimizationResult.optimizedGateCount) / optimizationResult.originalGateCount) * 100)}%
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <h4 className="opt-section-title" style={{ marginTop: '16px' }}>Suggestions</h4>
+              <div className="opt-suggestions-list">
+                {isOptimizing ? (
+                  <div className="sim-loading">
+                    <div className="loading-spinner"></div>
+                    <p className="loading-message">Analyzing optimizations...</p>
+                  </div>
+                ) : optimizationResult?.suggestions && optimizationResult.suggestions.length > 0 ? (
+                  optimizationResult.suggestions.map((sug, idx) => (
+                    <div key={idx} className={`opt-suggestion-item ${sug.type.toLowerCase().includes('cancel') ? 'cancel' : 'merge'}`}>
+                      <div className="opt-suggestion-header">
+                        <span className="opt-suggestion-type">{sug.type.replace('_', ' ')}</span>
+                        <span className="opt-suggestion-lines">Lines: {sug.lines.join(', ')}</span>
+                      </div>
+                      <p className="opt-suggestion-desc">{sug.description}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="opt-clean-state">
+                    <span className="opt-clean-icon">✨</span>
+                    <div className="opt-clean-title">Fully Optimized</div>
+                    <div className="opt-clean-desc">No redundant gates or rotation merges found. Good job!</div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Main Area with Code Preview & Diff */}
+            <div className="opt-main">
+              <div className="opt-preview-header">
+                <h3 className="opt-preview-title">Optimized Code Preview</h3>
+                <div className="opt-action-bar">
+                  <button
+                    className="opt-apply-button"
+                    disabled={!optimizationResult || optimizationResult.suggestions.length === 0}
+                    onClick={() => {
+                      if (optimizationResult?.optimizedSource) {
+                        postMessageToExtension({
+                          type: 'APPLY_OPTIMIZED_CODE',
+                          payload: {
+                            optimizedSource: optimizationResult.optimizedSource,
+                          },
+                        });
+                      }
+                    }}
+                  >
+                    🚀 Apply Optimizations
+                  </button>
+                </div>
+              </div>
+
+              <div className="opt-code-card">
+                <div className="opt-code-card-header">
+                  {circuit.variableName}.py (Optimized Output)
+                </div>
+                <pre className="opt-code-block">
+                  <code>{optimizationResult?.optimizedSource || '# Loading optimized code preview...'}</code>
+                </pre>
               </div>
             </div>
           </div>

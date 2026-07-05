@@ -1,13 +1,13 @@
-# QForge — Quantum Developer Tools
+# QFoundry — Quantum Developer Tools
 
-QForge is a premium, interactive development suite for **Qiskit** built directly into VS Code. It provides real-time visualization, gate-by-gate debugging, local execution histograms, and comprehensive hover documentation to speed up your quantum computing workflow.
+QFoundry is a premium, interactive development suite for **Qiskit** built directly into VS Code. It provides real-time visualization, gate-by-gate debugging, local execution histograms, and comprehensive hover documentation to speed up your quantum computing workflow.
 
 ---
 
 ## Features
 
 ### 1. 🔍 Live Circuit Preview
-No need to run your script to see if you built the circuit correctly. As you write code, QForge parses the source and renders a vector-perfect SVG diagram of your circuit in a side panel. It updates automatically on every keypress (debounced).
+No need to run your script to see if you built the circuit correctly. As you write code, QFoundry parses the source and renders a vector-perfect SVG diagram of your circuit in a side panel. It updates automatically on every keypress (debounced).
 
 ### 2. 🐛 Interactive Circuit Debugger
 A professional-grade debugger built specifically for quantum state exploration:

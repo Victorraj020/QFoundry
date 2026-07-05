@@ -36,6 +36,7 @@ from qforge.protocol import (
 from qforge.analyzer.circuit_analyzer import handle_analyze_circuit
 from qforge.simulator.local_runner import handle_run_simulator
 from qforge.debugger.step_engine import handle_step_circuit
+from qforge.optimizer.pass_suggester import handle_suggest_optimizations
 
 # ---------------------------------------------------------------------------
 # Logging — goes to stderr so it doesn't pollute the stdout JSON-RPC stream
@@ -59,6 +60,7 @@ HANDLERS: dict[str, Handler] = {
     "analyzeCircuit": handle_analyze_circuit,
     "runSimulator": handle_run_simulator,
     "debugStepCircuit": handle_step_circuit,
+    "suggestOptimizations": handle_suggest_optimizations,
 }
 
 

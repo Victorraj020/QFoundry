@@ -10,6 +10,7 @@ import { create } from 'zustand';
 import type { CircuitIR } from '@shared/CircuitIR';
 import type { AnalysisResult } from '@shared/AnalysisResult';
 import type { ExecutionResult, DebugResult } from '@shared/plugins';
+import type { OptimizationResult } from '@shared/messages';
 
 interface CircuitState {
   circuit: CircuitIR | null;
@@ -19,6 +20,8 @@ interface CircuitState {
   debugResult: DebugResult | null;
   currentStepIndex: number;
   isPlayMode: boolean;
+  optimizationResult: OptimizationResult | null;
+  isOptimizing: boolean;
   setCircuit(circuit: CircuitIR): void;
   setAnalysis(analysis: AnalysisResult): void;
   setSimulationResult(result: ExecutionResult | null): void;
@@ -26,6 +29,8 @@ interface CircuitState {
   setDebugResult(result: DebugResult | null): void;
   setCurrentStepIndex(index: number): void;
   setIsPlayMode(play: boolean): void;
+  setOptimizationResult(result: OptimizationResult | null): void;
+  setIsOptimizing(optimizing: boolean): void;
   reset(): void;
 }
 
@@ -37,6 +42,8 @@ export const useCircuitStore = create<CircuitState>((set) => ({
   debugResult: null,
   currentStepIndex: 0,
   isPlayMode: false,
+  optimizationResult: null,
+  isOptimizing: false,
 
   setCircuit: (circuit) => set({ circuit }),
 
@@ -54,6 +61,9 @@ export const useCircuitStore = create<CircuitState>((set) => ({
   setCurrentStepIndex: (currentStepIndex) => set({ currentStepIndex }),
   setIsPlayMode: (isPlayMode) => set({ isPlayMode }),
 
+  setOptimizationResult: (optimizationResult) => set({ optimizationResult, isOptimizing: false }),
+  setIsOptimizing: (isOptimizing) => set({ isOptimizing }),
+
   reset: () =>
     set({
       circuit: null,
@@ -63,5 +73,7 @@ export const useCircuitStore = create<CircuitState>((set) => ({
       debugResult: null,
       currentStepIndex: 0,
       isPlayMode: false,
+      optimizationResult: null,
+      isOptimizing: false,
     }),
 }));

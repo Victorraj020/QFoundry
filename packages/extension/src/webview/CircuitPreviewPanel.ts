@@ -9,13 +9,13 @@ import * as vscode from 'vscode';
 import { PanelBase } from './PanelBase';
 import type { WebviewMessageService } from '../services/WebviewMessageService';
 import type { PythonBridgeService } from '../services/PythonBridgeService';
-import type { WebviewMessage } from '../shared/messages';
+import type { WebviewMessage, OptimizationResult } from '../shared/messages';
 import type { DebugResult } from '../shared/plugins';
 import { Panels, Commands } from '../shared/constants';
 
 export class CircuitPreviewPanel extends PanelBase {
   readonly panelId = Panels.CIRCUIT_PREVIEW;
-  protected readonly viewTitle = 'QForge — Circuit Preview';
+  protected readonly viewTitle = 'QFoundry — Circuit Preview';
   protected readonly viewColumn = vscode.ViewColumn.Beside;
 
   constructor(
@@ -33,13 +33,23 @@ export class CircuitPreviewPanel extends PanelBase {
       this.outputChannel.appendLine(`[QForge] Gate doc requested: ${message.payload.gateName}`);
     } else if (message.type === 'REQUEST_SIMULATOR_RUN') {
       this.outputChannel.appendLine(`[QForge] Simulator run requested with ${message.payload.shots} shots.`);
-      vscode.commands.executeCommand(Commands.RUN_SIMULATION, message.payload).catch((err: Error) => {
+      Promise.resolve(vscode.commands.executeCommand(Commands.RUN_SIMULATION, message.payload)).catch((err: Error) => {
         this.outputChannel.appendLine(`[QForge] Failed to execute runSimulation command: ${err.message}`);
       });
     } else if (message.type === 'REQUEST_DEBUG_STATES') {
       this.outputChannel.appendLine(`[QForge] Debug stepping states requested.`);
       this.handleRequestDebugStates().catch((err: Error) => {
         this.outputChannel.appendLine(`[QForge] Failed to handle debug states request: ${err.message}`);
+      });
+    } else if (message.type === 'REQUEST_OPTIMIZATIONS') {
+      this.outputChannel.appendLine(`[QForge] Optimization suggestions requested.`);
+      this.handleRequestOptimizations().catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to handle optimizations request: ${err.message}`);
+      });
+    } else if (message.type === 'APPLY_OPTIMIZED_CODE') {
+      this.outputChannel.appendLine(`[QForge] Applying optimized code.`);
+      Promise.resolve(vscode.commands.executeCommand(Commands.APPLY_OPTIMIZATION, message.payload)).catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to execute applyOptimization command: ${err.message}`);
       });
     }
   }
@@ -71,6 +81,35 @@ export class CircuitPreviewPanel extends PanelBase {
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       this.webviewMessages.sendError('DEBUG_FAILED', message);
+    }
+  }
+
+  private async handleRequestOptimizations(): Promise<void> {
+    let editor = vscode.window.activeTextEditor;
+    if (!editor || editor.document.languageId !== 'python') {
+      editor = vscode.window.visibleTextEditors.find(
+        (e) => e.document.languageId === 'python',
+      );
+    }
+
+    if (!editor) {
+      this.webviewMessages.sendError('OPTIMIZE_FAILED', 'No active Python file found.');
+      return;
+    }
+
+    this.webviewMessages.sendLoading('Generating optimization suggestions...');
+    try {
+      const result = await this.pythonBridge.call<OptimizationResult>('suggestOptimizations', {
+        source: editor.document.getText(),
+        filePath: editor.document.uri.fsPath,
+      });
+      this.sendMessage({
+        type: 'OPTIMIZATIONS_UPDATED',
+        payload: result,
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.webviewMessages.sendError('OPTIMIZE_FAILED', message);
     }
   }
 }

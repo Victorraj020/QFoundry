@@ -11,7 +11,7 @@
 // ---------------------------------------------------------------------------
 
 export const EXTENSION_ID = 'qforge' as const;
-export const EXTENSION_DISPLAY_NAME = 'QForge' as const;
+export const EXTENSION_DISPLAY_NAME = 'QFoundry' as const;
 
 // ---------------------------------------------------------------------------
 // Command IDs — must match package.json contributes.commands[].command
@@ -23,6 +23,7 @@ export const Commands = {
   EXPLAIN_CIRCUIT: 'qforge.explainCircuit',
   RESTART_SERVER: 'qforge.restartServer',
   RUN_SIMULATION: 'qforge.runSimulation',
+  APPLY_OPTIMIZATION: 'qforge.applyOptimization',
 } as const;
 
 export type CommandId = (typeof Commands)[keyof typeof Commands];
@@ -54,7 +55,7 @@ export const ConfigKeys = {
 // Output channel / status bar
 // ---------------------------------------------------------------------------
 
-export const OUTPUT_CHANNEL_NAME = 'QForge' as const;
+export const OUTPUT_CHANNEL_NAME = 'QFoundry' as const;
 export const STATUS_BAR_PRIORITY = 100 as const;
 
 // ---------------------------------------------------------------------------

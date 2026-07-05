@@ -14,7 +14,7 @@ import type { WebviewMessage } from '../shared/messages';
 
 export class ExplainPanel extends PanelBase {
   readonly panelId = Panels.EXPLAIN;
-  protected readonly viewTitle = 'QForge — Explain Circuit';
+  protected readonly viewTitle = 'QFoundry — Explain Circuit';
   protected readonly viewColumn = vscode.ViewColumn.Beside;
 
   constructor(
