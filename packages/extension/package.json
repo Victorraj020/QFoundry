@@ -1,5 +1,5 @@
 {
-  "name": "qforge",
+  "name": "qforge-qiskit",
   "displayName": "QForge — Quantum Developer Tools",
   "description": "Live circuit preview, hover documentation, timeline, and intelligent analysis for Qiskit quantum computing.",
   "version": "0.1.0",
