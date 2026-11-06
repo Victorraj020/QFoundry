@@ -29,7 +29,7 @@ export function StatevectorViewer({
     <div className="statevector-viewer-widget">
       <div className="sv-header">
         <h4 className="sv-title">Quantum Statevector & Probability Amplitudes</h4>
-        <span className="sv-dimension-badge">{statevector.length} Basis States (2^{Math.log2(statevector.length)})</span>
+        <span className="sv-dimension-badge">{statevector.length} Basis States (2^{Math.round(Math.log2(statevector.length))})</span>
       </div>
 
       <div className="sv-table-container">

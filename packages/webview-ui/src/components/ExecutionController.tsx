@@ -96,6 +96,7 @@ export function ExecutionController({
             { label: '0.5x', ms: 1800 },
             { label: '1x', ms: 1000 },
             { label: '2x', ms: 500 },
+            { label: '3x', ms: 300 },
           ].map((s) => (
             <button
               key={s.ms}
