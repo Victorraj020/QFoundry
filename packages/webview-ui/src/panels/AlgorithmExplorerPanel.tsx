@@ -8,6 +8,7 @@
  */
 
 import { useEffect, useState, useMemo } from 'react';
+import type { AlgorithmMetadata } from '@shared/messages';
 import { useAlgorithmStore, type LearningMode } from '../store/algorithmStore';
 import { useUIStore } from '../store/uiStateStore';
 import { postMessageToExtension } from '../hooks/useVSCodeMessage';
@@ -97,7 +98,38 @@ export function AlgorithmExplorerPanel(): JSX.Element {
   }, [catalog, selectedCategory, searchQuery]);
 
   // Current step explanation and statevector
-  const currentStep = steps[currentStepIndex - 1];
+  // Match currentStep by finding the explanation whose stepIndex covers current active gate
+  const currentStep = useMemo(() => {
+    if (currentStepIndex === 0 || !circuit) {
+      return undefined;
+    }
+    const gateIdx = currentStepIndex - 1;
+    const activeGate = circuit.gates[gateIdx];
+    if (!activeGate) {
+      return steps[steps.length - 1];
+    }
+    const gateStep = activeGate.step;
+
+    // Find the closest step explanation matching this gate's step
+    let matched = steps[0];
+    for (const s of steps) {
+      if (s.stepIndex <= gateStep) {
+        matched = s;
+      } else {
+        break;
+      }
+    }
+    // Augment with active gate details
+    if (matched) {
+      return {
+        ...matched,
+        gateName: activeGate.name.toUpperCase(),
+        targetQubits: activeGate.qubits,
+        operation: `${activeGate.name.toUpperCase()} gate on qubit${activeGate.qubits.length > 1 ? 's' : ''} ${activeGate.qubits.join(', ')}`,
+      };
+    }
+    return steps[currentStepIndex - 1] ?? steps[0];
+  }, [steps, currentStepIndex, circuit]);
 
   // In statevectorSteps, index 0 is gateIndex -1 (initial state), index k is gateIndex k-1
   // We locate the statevector matching the current execution step
@@ -140,6 +172,29 @@ export function AlgorithmExplorerPanel(): JSX.Element {
     );
   }
 
+  const fallbackMetadata: AlgorithmMetadata = {
+    id: 'deutsch',
+    name: 'Deutsch Algorithm',
+    category: 'Foundational algorithms',
+    difficulty: 'Beginner',
+    qubits: 2,
+    shortDescription: '',
+    problemStatement: '',
+    importance: '',
+    coreConcept: '',
+    classicalVsQuantum: {
+      classicalQueries: '2',
+      quantumQueries: 1,
+      classicalComplexity: 'O(1)',
+      quantumComplexity: 'O(1)',
+      explanation: '',
+    },
+    mathFoundations: '',
+    prerequisites: [],
+    expectedOutput: '',
+    simulationComplexity: '',
+  };
+
   const currentPayload = {
     circuit: circuit ?? {
       id: '',
@@ -152,7 +207,7 @@ export function AlgorithmExplorerPanel(): JSX.Element {
       isApproximate: false,
     },
     steps,
-    metadata: selectedAlgorithm ?? (catalog[0] || ({} as any)),
+    metadata: selectedAlgorithm ?? (catalog[0] || fallbackMetadata),
     statevectorSteps,
     simulation: simulationResult ?? { counts: {}, provider: '', executionTimeMs: 0 },
   };

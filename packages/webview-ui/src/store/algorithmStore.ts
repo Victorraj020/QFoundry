@@ -124,13 +124,15 @@ export const useAlgorithmStore = create<AlgorithmState>((set, get) => ({
   setActiveMode: (mode) => set({ activeMode: mode }),
 
   setCurrentStepIndex: (index) => {
-    const maxIdx = Math.max(0, get().steps.length);
+    const total = get().circuit?.gates.length ?? get().steps.length;
+    const maxIdx = Math.max(0, total);
     const clamped = Math.max(0, Math.min(index, maxIdx));
     set({ currentStepIndex: clamped });
   },
 
   stepForward: () => {
-    const maxIdx = Math.max(0, get().steps.length);
+    const total = get().circuit?.gates.length ?? get().steps.length;
+    const maxIdx = Math.max(0, total);
     const curr = get().currentStepIndex;
     if (curr < maxIdx) {
       set({ currentStepIndex: curr + 1 });
@@ -159,7 +161,33 @@ export const useAlgorithmStore = create<AlgorithmState>((set, get) => ({
 
   setSelectedBlochQubit: (selectedBlochQubit) => set({ selectedBlochQubit }),
   setSearchQuery: (searchQuery) => set({ searchQuery }),
-  setSelectedCategory: (selectedCategory) => set({ selectedCategory }),
+  setSelectedCategory: (selectedCategory) => {
+    const { catalog, selectedAlgorithmId, searchQuery } = get();
+    // Check if current selected algorithm matches the new category
+    const current = catalog.find((a) => a.id === selectedAlgorithmId);
+    const matchesCat = selectedCategory === 'All' || current?.category === selectedCategory;
+
+    let nextAlgoId = selectedAlgorithmId;
+    if (!matchesCat) {
+      // Pick the first algorithm in the newly selected category
+      const filtered = catalog.filter((a) => {
+        const catOk = selectedCategory === 'All' || a.category === selectedCategory;
+        const searchOk =
+          searchQuery.trim() === '' ||
+          a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          a.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
+        return catOk && searchOk;
+      });
+      if (filtered[0]) {
+        nextAlgoId = filtered[0].id;
+      }
+    }
+
+    if (nextAlgoId !== selectedAlgorithmId) {
+      get().selectAlgorithm(nextAlgoId);
+    }
+    set({ selectedCategory });
+  },
 
   reset: () =>
     set({

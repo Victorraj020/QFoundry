@@ -3,13 +3,13 @@
  * @description Playback controller for step-by-step quantum algorithm execution.
  */
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { StepExplanation } from '@shared/messages';
 
 interface ExecutionControllerProps {
   currentStepIndex: number;
   totalSteps: number;
-  currentStep?: StepExplanation;
+  currentStep?: StepExplanation | undefined;
   isPlaying: boolean;
   playSpeedMs: number;
   onStepChange: (index: number) => void;
@@ -29,21 +29,36 @@ export function ExecutionController({
   onSpeedChange,
   onRestart,
 }: ExecutionControllerProps): JSX.Element {
-  // Handle auto-play timer
+  // Stable refs to avoid timer interval teardown on every step tick
+  const stepRef = useRef(currentStepIndex);
+  stepRef.current = currentStepIndex;
+
+  const totalStepsRef = useRef(totalSteps);
+  totalStepsRef.current = totalSteps;
+
+  const onStepChangeRef = useRef(onStepChange);
+  onStepChangeRef.current = onStepChange;
+
+  const onPlayToggleRef = useRef(onPlayToggle);
+  onPlayToggleRef.current = onPlayToggle;
+
+  // Handle auto-play timer stably
   useEffect(() => {
     if (!isPlaying) {
       return;
     }
     const timer = setInterval(() => {
-      if (currentStepIndex >= totalSteps) {
-        onPlayToggle(); // Stop when end is reached
+      const cur = stepRef.current;
+      const total = totalStepsRef.current;
+      if (cur >= total) {
+        onPlayToggleRef.current(); // Stop when end is reached
       } else {
-        onStepChange(currentStepIndex + 1);
+        onStepChangeRef.current(cur + 1);
       }
     }, playSpeedMs);
 
     return () => clearInterval(timer);
-  }, [isPlaying, currentStepIndex, totalSteps, playSpeedMs, onStepChange, onPlayToggle]);
+  }, [isPlaying, playSpeedMs]);
 
   return (
     <div className="algo-exec-controller">

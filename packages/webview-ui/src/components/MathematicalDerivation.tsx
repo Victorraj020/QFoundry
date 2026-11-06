@@ -10,10 +10,10 @@ import type { StepExplanation } from '@shared/messages';
 import type { Amplitude } from '@shared/plugins';
 
 interface MathematicalDerivationProps {
-  currentStep?: StepExplanation;
+  currentStep?: StepExplanation | undefined;
   stepIndex: number;
-  inputStatevector?: readonly Amplitude[];
-  outputStatevector?: readonly Amplitude[];
+  inputStatevector?: readonly Amplitude[] | undefined;
+  outputStatevector?: readonly Amplitude[] | undefined;
 }
 
 export function MathematicalDerivation({

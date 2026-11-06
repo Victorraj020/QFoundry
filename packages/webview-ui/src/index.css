@@ -2715,6 +2715,132 @@ code, pre {
   color: var(--vscode-panel-border, #444);
 }
 
+/* ---------------------------------------------------------------------------
+   Small Window & Responsive Layout Optimizations
+--------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .algo-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 10px 14px;
+  }
+
+  .algo-header-left {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .algo-dropdown {
+    min-width: 160px;
+    flex: 1;
+  }
+
+  .mode-switcher {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .mode-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 0.8em;
+  }
+
+  .algo-filter-bar {
+    padding: 8px 12px;
+  }
+
+  .algo-search-wrapper {
+    width: 100%;
+  }
+
+  .visuals-two-column-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-split {
+    grid-template-columns: 1fr;
+  }
+
+  .circuit-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .circuit-view-tabs {
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .controller-main-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .controller-buttons {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .controller-speed-group {
+    justify-content: flex-end;
+  }
+
+  .active-step-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 550px) {
+  .algo-main-layout {
+    padding: 8px 10px;
+    gap: 10px;
+  }
+
+  .category-pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    width: 100%;
+  }
+
+  .cat-pill {
+    flex-shrink: 0;
+  }
+
+  .circuit-view-tabs {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .view-tab-btn {
+    flex-shrink: 0;
+    font-size: 0.78em;
+    padding: 4px 6px;
+  }
+
+  .ctrl-btn {
+    padding: 5px 8px;
+    font-size: 0.8em;
+  }
+
+  .ctrl-btn.play-btn {
+    min-width: 70px;
+  }
+
+  .bloch-canvas-container svg {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
 
 
 
