@@ -1,0 +1,180 @@
+/**
+ * @file CircuitPreviewPanel.ts
+ * @description The Circuit Preview webview panel.
+ *
+ * Shows the live SVG circuit diagram, updating in real time as the user types.
+ */
+
+import * as vscode from 'vscode';
+import { PanelBase } from './PanelBase';
+import type { WebviewMessageService } from '../services/WebviewMessageService';
+import type { PythonBridgeService } from '../services/PythonBridgeService';
+import type {
+  WebviewMessage,
+  OptimizationResult,
+  AlgorithmMetadata,
+  AlgorithmSimulationPayload,
+} from '../shared/messages';
+import type { DebugResult } from '../shared/plugins';
+import { Panels, Commands } from '../shared/constants';
+
+export class CircuitPreviewPanel extends PanelBase {
+  readonly panelId = Panels.CIRCUIT_PREVIEW;
+  protected readonly viewTitle = 'QFoundry — Circuit Preview';
+  protected readonly viewColumn = vscode.ViewColumn.Beside;
+
+  constructor(
+    context: vscode.ExtensionContext,
+    private readonly webviewMessages: WebviewMessageService,
+    private readonly pythonBridge: PythonBridgeService,
+    outputChannel: vscode.OutputChannel,
+  ) {
+    super(context, outputChannel);
+  }
+
+  protected onMessageReceived(message: WebviewMessage): void {
+    if (message.type === 'REQUEST_GATE_DOC') {
+      // Gate doc request from the webview (e.g., user clicked a gate in the diagram)
+      this.outputChannel.appendLine(`[QForge] Gate doc requested: ${message.payload.gateName}`);
+    } else if (message.type === 'REQUEST_SIMULATOR_RUN') {
+      this.outputChannel.appendLine(`[QForge] Simulator run requested with ${message.payload.shots} shots.`);
+      Promise.resolve(vscode.commands.executeCommand(Commands.RUN_SIMULATION, message.payload)).catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to execute runSimulation command: ${err.message}`);
+      });
+    } else if (message.type === 'REQUEST_DEBUG_STATES') {
+      this.outputChannel.appendLine(`[QForge] Debug stepping states requested.`);
+      this.handleRequestDebugStates().catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to handle debug states request: ${err.message}`);
+      });
+    } else if (message.type === 'REQUEST_OPTIMIZATIONS') {
+      this.outputChannel.appendLine(`[QForge] Optimization suggestions requested.`);
+      this.handleRequestOptimizations().catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to handle optimizations request: ${err.message}`);
+      });
+    } else if (message.type === 'REQUEST_ALGORITHM_CATALOG') {
+      this.handleLoadCatalog().catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to load algorithm catalog: ${err.message}`);
+      });
+    } else if (message.type === 'REQUEST_SIMULATE_ALGORITHM') {
+      this.handleSimulateAlgorithm(message.payload).catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to simulate algorithm: ${err.message}`);
+      });
+    } else if (message.type === 'APPLY_OPTIMIZED_CODE') {
+      this.outputChannel.appendLine(`[QForge] Applying optimized code.`);
+      Promise.resolve(vscode.commands.executeCommand(Commands.APPLY_OPTIMIZATION, message.payload)).catch((err: Error) => {
+        this.outputChannel.appendLine(`[QForge] Failed to execute applyOptimization command: ${err.message}`);
+      });
+    }
+  }
+
+  private async handleRequestDebugStates(): Promise<void> {
+    let editor = vscode.window.activeTextEditor;
+    if (!editor || editor.document.languageId !== 'python') {
+      editor = vscode.window.visibleTextEditors.find(
+        (e) => e.document.languageId === 'python',
+      );
+    }
+
+    if (!editor) {
+      this.webviewMessages.sendError('DEBUG_FAILED', 'No active Python file found.');
+      return;
+    }
+
+    this.webviewMessages.sendLoading('Calculating debug steps...');
+    try {
+      const result = await this.pythonBridge.call<DebugResult>('debugStepCircuit', {
+        source: editor.document.getText(),
+        filePath: editor.document.uri.fsPath,
+      });
+      // Send directly to the webview panel instance
+      this.sendMessage({
+        type: 'DEBUG_STATES_UPDATED',
+        payload: result,
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.webviewMessages.sendError('DEBUG_FAILED', message);
+    }
+  }
+
+  private async handleRequestOptimizations(): Promise<void> {
+    let editor = vscode.window.activeTextEditor;
+    if (!editor || editor.document.languageId !== 'python') {
+      editor = vscode.window.visibleTextEditors.find(
+        (e) => e.document.languageId === 'python',
+      );
+    }
+
+    if (!editor) {
+      this.webviewMessages.sendError('OPTIMIZE_FAILED', 'No active Python file found.');
+      return;
+    }
+
+    this.webviewMessages.sendLoading('Generating optimization suggestions...');
+    try {
+      const result = await this.pythonBridge.call<OptimizationResult>('suggestOptimizations', {
+        source: editor.document.getText(),
+        filePath: editor.document.uri.fsPath,
+      });
+      this.sendMessage({
+        type: 'OPTIMIZATIONS_UPDATED',
+        payload: result,
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.webviewMessages.sendError('OPTIMIZE_FAILED', message);
+    }
+  }
+
+  private async handleLoadCatalog(): Promise<void> {
+    try {
+      const catalog = await this.pythonBridge.call<AlgorithmMetadata[]>('getAlgorithmCatalog');
+      this.sendMessage({
+        type: 'ALGORITHM_CATALOG',
+        payload: catalog,
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      this.sendMessage({
+        type: 'ERROR',
+        payload: {
+          code: 'CATALOG_ERROR',
+          message: `Failed to load quantum algorithms: ${msg}`,
+        },
+      });
+    }
+  }
+
+  private async handleSimulateAlgorithm(payload: {
+    algorithmId: string;
+    parameters?: Record<string, unknown> | undefined;
+    shots?: number | undefined;
+    seed?: number | undefined;
+  }): Promise<void> {
+    this.sendMessage({
+      type: 'LOADING',
+      payload: { operation: `Simulating ${payload.algorithmId}...` },
+    });
+    try {
+      const result = await this.pythonBridge.call<AlgorithmSimulationPayload>('simulateAlgorithm', {
+        algorithmId: payload.algorithmId,
+        parameters: payload.parameters || {},
+        shots: payload.shots ?? 1024,
+        seed: payload.seed,
+      });
+      this.sendMessage({
+        type: 'ALGORITHM_DATA',
+        payload: result,
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      this.sendMessage({
+        type: 'ERROR',
+        payload: {
+          code: 'SIMULATION_ERROR',
+          message: `Algorithm simulation failed: ${msg}`,
+        },
+      });
+    }
+  }
+}
