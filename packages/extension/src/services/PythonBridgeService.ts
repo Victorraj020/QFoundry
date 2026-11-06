@@ -276,8 +276,27 @@ export class PythonBridgeService implements vscode.Disposable {
           }
         }
       }
+      return 'python';
     }
 
-    return 'python';
+    // On macOS / Linux, try common python3 binaries
+    const macLinuxCandidates = [
+      'python3',
+      '/usr/local/bin/python3',
+      '/opt/homebrew/bin/python3',
+      '/usr/bin/python3',
+      '/Library/Frameworks/Python.framework/Versions/3.12/bin/python3',
+      '/Library/Frameworks/Python.framework/Versions/3.11/bin/python3',
+      '/Library/Frameworks/Python.framework/Versions/3.10/bin/python3',
+      'python',
+    ];
+
+    for (const candidate of macLinuxCandidates) {
+      if (candidate.startsWith('/') && fs.existsSync(candidate)) {
+        return candidate;
+      }
+    }
+
+    return 'python3';
   }
 }

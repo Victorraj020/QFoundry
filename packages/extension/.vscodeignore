@@ -6,4 +6,4 @@ tsconfig.json
 **/*.map
 !out/extension.js
 !webview-dist/**
-!packages/python/**
+!python/**

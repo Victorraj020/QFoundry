@@ -13,3 +13,4 @@ dist/
 .env
 .DS_Store
 Thumbs.db
+packages/extension/python/**/__pycache__
