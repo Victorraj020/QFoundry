@@ -5,13 +5,19 @@
   "private": true,
   "workspaces": [
     "packages/extension",
-    "packages/webview-ui"
+    "packages/webview-ui",
+    "packages/qfoundry-npm",
+    "packages/website"
   ],
   "scripts": {
-    "build": "npm run build:webview && npm run build:extension",
+    "build": "npm run build:webview && npm run build:extension && npm run build:npm && npm run build:website",
     "build:extension": "npm run build --workspace=packages/extension",
     "build:webview": "npm run build --workspace=packages/webview-ui",
-    "dev": "npm run dev:webview",
+    "build:npm": "npm run build --workspace=packages/qfoundry-npm",
+    "build:website": "npm run build --workspace=packages/website",
+    "publish:npm": "npm publish --workspace=packages/qfoundry-npm --access public",
+    "dev": "npm run dev:website",
+    "dev:website": "npm run dev --workspace=packages/website",
     "dev:webview": "npm run dev --workspace=packages/webview-ui",
     "watch:extension": "npm run watch --workspace=packages/extension",
     "typecheck": "npm run typecheck --workspaces --if-present",
@@ -24,5 +30,8 @@
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "qfoundry": "^0.1.0"
   }
 }

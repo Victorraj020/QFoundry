@@ -11,6 +11,7 @@ __pycache__/
 *.egg-info/
 dist/
 .env
+.npmrc
 .DS_Store
 Thumbs.db
 packages/extension/python/**/__pycache__

@@ -1,0 +1,53 @@
+{
+  "name": "qfoundry",
+  "version": "0.1.0",
+  "description": "High-performance quantum circuit simulation and CLI tooling for JavaScript and TypeScript.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "qfoundry": "bin/qfoundry.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "node bin/qfoundry.js simulate"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "quantum",
+    "quantum-computing",
+    "quantum-circuit",
+    "simulation",
+    "statevector",
+    "bell-state",
+    "qubit",
+    "complex-numbers"
+  ],
+  "author": "Victorraj <victorraj020@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Victorraj020/QFoundry.git",
+    "directory": "packages/qfoundry-npm"
+  },
+  "bugs": {
+    "url": "https://github.com/Victorraj020/QFoundry/issues"
+  },
+  "homepage": "https://github.com/Victorraj020/QFoundry#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
