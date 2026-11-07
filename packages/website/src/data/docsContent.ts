@@ -568,7 +568,7 @@ The **QFoundry VS Code Extension** is a production-grade developer tool for Visu
 
 - **Publisher**: \`victorraj020\`
 - **Developed & Managed by**: [Victor Raj](https://www.linkedin.com/in/victor-raj/)
-- **Extension ID**: \`qfoundry\`
+- **Marketplace ID**: [\`victorraj020.qfoundry-qiskit\`](https://marketplace.visualstudio.com/items?itemName=victorraj020.qfoundry-qiskit)
 - **Current Version**: \`2.2.0\`
 - **License**: MIT
 
@@ -586,11 +586,11 @@ The **QFoundry VS Code Extension** is a production-grade developer tool for Visu
 
 <h2 id="installation">Installation</h2>
 
-Install via the VS Code Marketplace or from the packaged VSIX:
+Install via the VS Code Marketplace or directly from the terminal:
 
 \`\`\`bash
-# Install directly from terminal
-code --install-extension qfoundry-2.2.0.vsix --force
+# Install directly from VS Code Marketplace
+code --install-extension victorraj020.qfoundry-qiskit
 \`\`\`
 
 Prerequisites:

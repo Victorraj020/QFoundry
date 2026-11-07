@@ -145,6 +145,16 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
+                  href="https://marketplace.visualstudio.com/items?itemName=victorraj020.qfoundry-qiskit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                >
+                  <span>VS Code Marketplace ↗</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://www.linkedin.com/in/victor-raj/"
                   target="_blank"
                   rel="noopener noreferrer"

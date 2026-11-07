@@ -124,8 +124,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         <Code2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         QFoundry Extension
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold">
-                        v2.2.0 • Existing
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-semibold">
+                        v2.2.0 • Marketplace
                       </span>
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 pl-6">

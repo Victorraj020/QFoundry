@@ -27,7 +27,7 @@ export const ExtensionProductPage: React.FC = () => {
   const [copiedInstall, setCopiedInstall] = useState(false);
 
   const handleCopyInstall = () => {
-    navigator.clipboard.writeText('code --install-extension qfoundry-2.2.0.vsix --force');
+    navigator.clipboard.writeText('code --install-extension victorraj020.qfoundry-qiskit');
     setCopiedInstall(true);
     setTimeout(() => setCopiedInstall(false), 2000);
   };
@@ -37,10 +37,10 @@ export const ExtensionProductPage: React.FC = () => {
       {/* Product Hero */}
       <div className="space-y-6">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-            v2.2.0 • Existing Project
+          <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+            v2.2.0 • VS Code Marketplace
           </span>
-          <span className="text-xs font-mono text-slate-500">VS Code Extension</span>
+          <span className="text-xs font-mono text-slate-500">VS Code &amp; Cursor</span>
           <span className="text-xs font-mono text-slate-500">• MIT License</span>
         </div>
 
@@ -57,7 +57,7 @@ export const ExtensionProductPage: React.FC = () => {
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <div className="flex items-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#11131a] px-3 py-1.5 font-mono text-xs text-slate-700 dark:text-slate-300 shadow-sm">
             <span className="text-slate-400 select-none mr-2">$</span>
-            <span>code --install-extension qfoundry-2.2.0.vsix</span>
+            <span>code --install-extension victorraj020.qfoundry-qiskit</span>
             <button
               onClick={handleCopyInstall}
               className="ml-3 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
@@ -68,10 +68,20 @@ export const ExtensionProductPage: React.FC = () => {
           </div>
 
           <a
+            href="https://marketplace.visualstudio.com/items?itemName=victorraj020.qfoundry-qiskit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-colors"
+          >
+            VS Code Marketplace
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+
+          <a
             href="https://github.com/Victorraj020/QFoundry"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 shadow-sm transition-opacity"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#11131a] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-sm transition-colors"
           >
             GitHub Repository
             <ExternalLink className="w-3.5 h-3.5" />
@@ -88,12 +98,21 @@ export const ExtensionProductPage: React.FC = () => {
         {/* Extension Metadata Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0c0d12]">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Extension ID</span>
-            <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white mt-0.5">qfoundry</div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Marketplace ID</span>
+            <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white mt-0.5 truncate" title="victorraj020.qfoundry-qiskit">
+              victorraj020.qfoundry-qiskit
+            </div>
           </div>
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Current Release</span>
-            <div className="font-mono text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">v2.2.0 Core</div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Marketplace Status</span>
+            <a
+              href="https://marketplace.visualstudio.com/items?itemName=victorraj020.qfoundry-qiskit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm font-semibold text-blue-600 dark:text-blue-400 mt-0.5 hover:underline flex items-center gap-1"
+            >
+              v2.2.0 • Live ↗
+            </a>
           </div>
           <div>
             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Platform</span>
