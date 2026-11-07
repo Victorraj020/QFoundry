@@ -497,8 +497,19 @@ export const HomePage: React.FC = () => {
             <div className="lg:col-span-5">
               <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#11131a] p-6 shadow-sm space-y-5">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center text-white font-bold text-xl shadow-md">
-                    VR
+                  <div className="relative shrink-0">
+                    <img
+                      src="/victor-raj.png"
+                      alt="Victor Raj"
+                      className="w-14 h-14 rounded-2xl object-cover border-2 border-slate-200 dark:border-slate-700 shadow-md ring-2 ring-emerald-500/20"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://github.com/Victorraj020.png';
+                      }}
+                    />
+                    <span
+                      className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-[#11131a]"
+                      title="Active Maintainer"
+                    />
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 dark:text-white text-base">
