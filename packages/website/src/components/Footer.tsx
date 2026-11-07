@@ -32,6 +32,26 @@ export const Footer: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>All Systems Operational • v2.2.0 Core</span>
             </div>
+
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800/80">
+              <div className="text-xs text-slate-700 dark:text-slate-300">
+                Developed and managed by{' '}
+                <a
+                  href="https://www.linkedin.com/in/victor-raj/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 underline underline-offset-2 inline-flex items-center gap-1"
+                >
+                  Victor Raj
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                    LinkedIn ↗
+                  </span>
+                </a>
+              </div>
+              <p className="text-[11px] text-slate-500 mt-1">
+                Quantum computing systems, TypeScript libraries, and AI tooling.
+              </p>
+            </div>
           </div>
 
           {/* Column: Products */}
@@ -125,6 +145,16 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
+                  href="https://www.linkedin.com/in/victor-raj/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                >
+                  <span>Victor Raj (LinkedIn) ↗</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://github.com/Victorraj020/QFoundry"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -146,11 +176,22 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-          <div>
-            Built & maintained by <span className="font-medium text-slate-700 dark:text-slate-300">Victorraj</span> (victorraj020@gmail.com).
+        <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span>Developed and managed by</span>
+            <a
+              href="https://www.linkedin.com/in/victor-raj/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 underline underline-offset-2 flex items-center gap-1"
+            >
+              Victor Raj
+              <span className="inline-block text-[10px] px-1.5 py-0.2 rounded bg-blue-50 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-mono">LinkedIn ↗</span>
+            </a>
+            <span className="text-slate-400">•</span>
+            <a href="mailto:victorraj020@gmail.com" className="hover:underline">victorraj020@gmail.com</a>
           </div>
-          <div className="mt-2 sm:mt-0 font-mono text-[11px]">
+          <div className="font-mono text-[11px]">
             MIT License • Open Source Developer Ecosystem
           </div>
         </div>

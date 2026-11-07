@@ -18,6 +18,7 @@ import {
   HelpCircle,
   Copy,
   Check,
+  Linkedin,
 } from 'lucide-react';
 import { CodeBlock } from '../components/CodeBlock';
 import { QuantumCircuitSVG } from '../components/QuantumCircuitSVG';
@@ -82,6 +83,34 @@ export const ExtensionProductPage: React.FC = () => {
           >
             Read Documentation
           </Link>
+        </div>
+
+        {/* Extension Metadata Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0c0d12]">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Extension ID</span>
+            <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white mt-0.5">qfoundry</div>
+          </div>
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Current Release</span>
+            <div className="font-mono text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">v2.2.0 Core</div>
+          </div>
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Platform</span>
+            <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white mt-0.5">VS Code / Cursor</div>
+          </div>
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Developed &amp; Managed by</span>
+            <a
+              href="https://www.linkedin.com/in/victor-raj/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm font-semibold text-blue-600 dark:text-blue-400 mt-0.5 hover:underline flex items-center gap-1"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              Victor Raj ↗
+            </a>
+          </div>
         </div>
       </div>
 

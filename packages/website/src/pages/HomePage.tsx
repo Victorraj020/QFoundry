@@ -13,6 +13,10 @@ import {
   Zap,
   CheckCircle2,
   FlaskConical,
+  Linkedin,
+  ExternalLink,
+  Sparkles,
+  Globe,
 } from 'lucide-react';
 import { QuantumCircuitSVG } from '../components/QuantumCircuitSVG';
 
@@ -50,7 +54,9 @@ export const HomePage: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span className="font-medium">QFoundry Developer Ecosystem</span>
           <span className="text-slate-300 dark:text-slate-700">•</span>
-          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">v2.2.0 Released</span>
+          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">qfoundry v0.1.0 on npm</span>
+          <span className="text-slate-300 dark:text-slate-700">•</span>
+          <span className="font-mono text-slate-500">v2.2.0 Core</span>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-4">
@@ -223,8 +229,8 @@ export const HomePage: React.FC = () => {
                 <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/80 flex items-center justify-center text-amber-600 dark:text-amber-400">
                   <Package className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
-                  In Development
+                <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  v0.1.0 • Published on npm
                 </span>
               </div>
 
@@ -233,7 +239,7 @@ export const HomePage: React.FC = () => {
                   QFoundry npm
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                  Quantum simulation for JS & TS
+                  Quantum simulation for JS &amp; TS
                 </p>
               </div>
 
@@ -252,7 +258,7 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Integrated CLI runner & ASCII printer</span>
+                  <span>Integrated CLI runner &amp; ASCII printer</span>
                 </div>
               </div>
             </div>
@@ -265,7 +271,15 @@ export const HomePage: React.FC = () => {
                 Explore npm Package
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              <span className="text-[10px] font-mono text-slate-400">npm i qfoundry</span>
+              <a
+                href="https://www.npmjs.com/package/qfoundry"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
+              >
+                <span>npm i qfoundry</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
             </div>
           </div>
 
@@ -372,6 +386,181 @@ export const HomePage: React.FC = () => {
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Adaptive CSS variable binding directly reading editor host variables for instantaneous dark/light transition.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DEVELOPED & MANAGED BY VICTOR RAJ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white via-slate-50 to-slate-100 dark:from-[#0d0f16] dark:via-[#090a0f] dark:to-[#11131d] p-8 sm:p-10 shadow-sm">
+          <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 rounded-full bg-emerald-500/5 dark:bg-emerald-500/10 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left Column: Bio & Badges */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/50 text-xs font-mono text-blue-700 dark:text-blue-300">
+                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                <span>Lead Architect &amp; Maintainer</span>
+              </div>
+
+              <div className="space-y-2">
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                  Developed and managed by Victor Raj
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Software engineer and quantum developer. Architected and implemented the entire QFoundry ecosystem end-to-end — spanning native TypeScript simulation algorithms, developer tooling extensions, and automated NLP interfaces.
+                </p>
+              </div>
+
+              {/* Shipped Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-[#11131a]/80 backdrop-blur-xs">
+                  <Package className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-slate-900 dark:text-slate-100">qfoundry on npm (v0.1.0)</div>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Pure TypeScript statevector simulation &amp; circuit API.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-[#11131a]/80 backdrop-blur-xs">
+                  <Code2 className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-slate-900 dark:text-slate-100">VS Code Extension (v2.2.0)</div>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Live reactive preview, timeline scrubber &amp; Qiskit analyzer.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-[#11131a]/80 backdrop-blur-xs">
+                  <Cpu className="w-4 h-4 text-purple-500 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-slate-900 dark:text-slate-100">Vic on PyPI (v0.3.0)</div>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Natural language computer interface &amp; local AutoML studio.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-[#11131a]/80 backdrop-blur-xs">
+                  <Globe className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-slate-900 dark:text-slate-100">Developer Portal &amp; Docs</div>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Full ecosystem documentation, playground &amp; web terminal.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Profile links */}
+              <div className="flex flex-wrap items-center gap-3 pt-3">
+                <a
+                  href="https://www.linkedin.com/in/victor-raj/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0077b5] hover:bg-[#006097] text-white font-medium text-xs shadow-sm transition-all"
+                >
+                  <Linkedin className="w-4 h-4 fill-current" />
+                  Connect on LinkedIn
+                  <ExternalLink className="w-3 h-3 opacity-80" />
+                </a>
+
+                <a
+                  href="https://github.com/Victorraj020"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#11131a] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs shadow-xs transition-all"
+                >
+                  <svg width="14" height="14" className="fill-current shrink-0" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                  </svg>
+                  GitHub @Victorraj020
+                </a>
+
+                <a
+                  href="https://www.npmjs.com/package/qfoundry"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#11131a] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs shadow-xs transition-all"
+                >
+                  <Package className="w-3.5 h-3.5 text-red-500" />
+                  npm package
+                </a>
+
+                <a
+                  href="mailto:victorraj020@gmail.com"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#11131a] text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs shadow-xs transition-all"
+                >
+                  Email
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Visual Bio / Interactive Credential Card */}
+            <div className="lg:col-span-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#11131a] p-6 shadow-sm space-y-5">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    VR
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-base">
+                      Victor Raj
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Quantum Software Engineer
+                    </p>
+                    <div className="flex items-center gap-2 mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span>Active Maintainer</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800/60 font-mono text-[11px]">
+                    <span className="text-slate-400">LinkedIn Profile</span>
+                    <a
+                      href="https://www.linkedin.com/in/victor-raj/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold"
+                    >
+                      /in/victor-raj ↗
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800/60 font-mono text-[11px]">
+                    <span className="text-slate-400">GitHub</span>
+                    <a
+                      href="https://github.com/Victorraj020"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-700 dark:text-slate-300 hover:underline"
+                    >
+                      Victorraj020 ↗
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800/60 font-mono text-[11px]">
+                    <span className="text-slate-400">npm Published</span>
+                    <a
+                      href="https://www.npmjs.com/package/qfoundry"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold"
+                    >
+                      qfoundry@0.1.0 ↗
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between py-1 font-mono text-[11px]">
+                    <span className="text-slate-400">PyPI Published</span>
+                    <a
+                      href="https://pypi.org/project/vic-nlp/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                    >
+                      vic-nlp@0.3.0 ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

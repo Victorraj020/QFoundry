@@ -21,6 +21,7 @@ import {
   Wand2,
   CheckCircle2,
   Boxes,
+  Linkedin,
 } from 'lucide-react';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -155,8 +156,16 @@ export const VicNlpProductPage: React.FC = () => {
           <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white mt-0.5">&gt;= 3.7</div>
         </div>
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Maintainer</span>
-          <div className="font-mono text-sm font-semibold text-slate-900 dark:text-white mt-0.5">victorraj020</div>
+          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Developed &amp; Managed by</span>
+          <a
+            href="https://www.linkedin.com/in/victor-raj/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-sm font-semibold text-blue-600 dark:text-blue-400 mt-0.5 hover:underline flex items-center gap-1"
+          >
+            <Linkedin className="w-3.5 h-3.5" />
+            Victor Raj ↗
+          </a>
         </div>
       </div>
 

@@ -30,7 +30,7 @@ export const DOC_SECTIONS: DocSection[] = [
 **QFoundry npm** is a lightweight, zero-dependency quantum circuit construction and statevector simulation library designed for modern JavaScript and TypeScript environments. It runs natively in both Node.js runtimes and web browsers.
 
 > [!NOTE]
-> QFoundry npm is currently in active alpha development (\`v0.1.0-alpha.1\`). It provides statevector simulation for circuits up to 16 qubits with exact complex amplitude calculations.
+> **QFoundry npm** is officially published on the npm registry as [\`qfoundry@0.1.0\`](https://www.npmjs.com/package/qfoundry). Developed and managed by [Victor Raj](https://www.linkedin.com/in/victor-raj/). It provides statevector simulation for circuits up to 16 qubits with exact complex amplitude calculations and zero dependencies.
 
 ---
 
@@ -567,6 +567,7 @@ The **QFoundry VS Code Extension** is a production-grade developer tool for Visu
 <h2 id="overview">Overview</h2>
 
 - **Publisher**: \`victorraj020\`
+- **Developed & Managed by**: [Victor Raj](https://www.linkedin.com/in/victor-raj/)
 - **Extension ID**: \`qfoundry\`
 - **Current Version**: \`2.2.0\`
 - **License**: MIT
@@ -712,8 +713,8 @@ Automatically converts messy floating-point numbers into clean algebraic represe
 
 - **PyPI Package**: [\`vic-nlp\`](https://pypi.org/project/vic-nlp/)
 - **Latest Release**: \`v0.3.0\` (Apr 23, 2026)
-- **Maintainer**: \`victorraj020\`
-- **Author**: Vic Development Team
+- **Developed & Managed by**: [Victor Raj](https://www.linkedin.com/in/victor-raj/)
+- **Author**: Victor Raj
 - **Requirements**: Python >= 3.7
 
 ---
