@@ -51,15 +51,6 @@ export const HomePage: React.FC = () => {
     <div className="space-y-24 pb-20">
       {/* HERO SECTION */}
       <section className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center space-y-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#11131a] text-xs text-slate-600 dark:text-slate-300 shadow-xs">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span className="font-medium">QFoundry Developer Ecosystem</span>
-          <span className="text-slate-300 dark:text-slate-700">•</span>
-          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">qfoundry v0.1.0 on npm</span>
-          <span className="text-slate-300 dark:text-slate-700">•</span>
-          <span className="font-mono text-slate-500">v2.2.0 Core</span>
-        </div>
-
         <div className="max-w-4xl mx-auto space-y-4">
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
             Engineering tools for exploring the next generation of computing.
